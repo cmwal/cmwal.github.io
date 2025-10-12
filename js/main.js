@@ -148,14 +148,16 @@ function parseMarkdown(md) {
 // Load all markdown files from projects directory
 async function loadProjects() {
     try {
-        // Get list of markdown files from projects directory
-        const response = await fetch('projects/projects.json');
+        // Add cache-busting parameter to force fresh fetch
+        const cacheBuster = new Date().getTime();
+        const response = await fetch(`projects/projects.json?v=${cacheBuster}`);
         const fileList = await response.json();
         
         // Load each markdown file
         const projectPromises = fileList.map(async filename => {
             try {
-                const mdResponse = await fetch(`projects/${filename}`);
+                // Add cache-busting to markdown files too
+                const mdResponse = await fetch(`projects/${filename}?v=${cacheBuster}`);
                 const mdContent = await mdResponse.text();
                 const { metadata, content } = parseFrontmatter(mdContent);
                 
