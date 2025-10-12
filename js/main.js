@@ -257,7 +257,11 @@ function renderProjectGrid(containerId, projectsList) {
     projectsList.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.onclick = () => showProjectDetail(project.id);
+        card.onclick = (e) => {
+            e.preventDefault();
+            showProjectDetail(project.id);
+            return false;
+        };
         
         card.innerHTML = `
             <div class="project-image" style="background-image: url('${project.image}')"></div>
@@ -282,9 +286,12 @@ function populateDropdown() {
         const item = document.createElement('a');
         item.className = 'dropdown-item';
         item.textContent = project.title;
+        item.href = 'javascript:void(0);';
         item.onclick = (e) => {
             e.preventDefault();
+            e.stopPropagation();
             showProjectDetail(project.id);
+            return false;
         };
         dropdown.appendChild(item);
     });
