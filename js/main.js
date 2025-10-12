@@ -296,6 +296,7 @@ function showHome() {
     document.getElementById('projectsPage').classList.add('hidden');
     document.getElementById('projectDetailPage').classList.add('hidden');
     window.scrollTo(0, 0);
+    return false; // Prevent default link behavior
 }
 
 function showProjects() {
@@ -303,11 +304,12 @@ function showProjects() {
     document.getElementById('projectsPage').classList.remove('hidden');
     document.getElementById('projectDetailPage').classList.add('hidden');
     window.scrollTo(0, 0);
+    return false; // Prevent default link behavior
 }
 
 function showProjectDetail(projectId) {
     const project = projects.find(p => p.id === projectId);
-    if (!project) return;
+    if (!project) return false;
     
     document.getElementById('homePage').classList.add('hidden');
     document.getElementById('projectsPage').classList.add('hidden');
@@ -317,6 +319,7 @@ function showProjectDetail(projectId) {
     content.innerHTML = parseMarkdown(project.markdown);
     
     window.scrollTo(0, 0);
+    return false; // Prevent default link behavior
 }
 
 // Initialize on page load
