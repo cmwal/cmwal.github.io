@@ -1,6 +1,6 @@
 ---
-title: 3D-Printer Fail-detection
-summary: A computer vision system designed to detect whether a 3d print has failed in order to minimize material loss and improve safety
+title: 150g Vertical Drum spinner Combat Robotics
+summary: A competed design for a vertical drum spinner combat robot within the ant-weight division.
 image: images/Derf-V4.png
 featured: true
 ---

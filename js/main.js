@@ -1,6 +1,40 @@
 // Global projects array
 let projects = [];
 
+// Theme toggle functionality
+function toggleTheme() {
+    const body = document.body;
+    const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    if (newTheme === 'dark') {
+        body.classList.add('dark-theme');
+    } else {
+        body.classList.remove('dark-theme');
+    }
+    
+    // Save preference in memory
+    window.themePreference = newTheme;
+}
+
+// Load theme preference on page load
+function loadThemePreference() {
+    // Default to dark theme
+    let theme = 'dark';
+    
+    // Check if there's a saved preference in memory
+    if (window.themePreference) {
+        theme = window.themePreference;
+    }
+    
+    // Apply theme
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
+    } else {
+        document.body.classList.remove('dark-theme');
+    }
+}
+
 // Parse frontmatter from markdown
 function parseFrontmatter(content) {
     const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
@@ -285,5 +319,6 @@ function showProjectDetail(projectId) {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+    loadThemePreference();
     loadProjects();
 });
