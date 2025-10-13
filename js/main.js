@@ -118,11 +118,24 @@ async function loadProjects() {
         const response = await fetch('projects/projects.json');
         const fileList = await response.json();
         
-        // Load each markdown file
         const projectPromises = fileList.map(async filename => {
             try {
+                console.log('Attempting to fetch:', `projects/${filename}`);
                 const mdResponse = await fetch(`projects/${filename}`);
+                console.log('Response status:', mdResponse.status, 'for', filename);
+        
+                if (!mdResponse.ok) {
+                    throw new Error(`HTTP error! status: ${mdResponse.status}`);
+                }
+        
                 const mdContent = await mdResponse.text();
+                console.log('Successfully loaded:', filename);
+        
+            if (!mdResponse.ok) {
+                throw new Error(`HTTP error! status: ${mdResponse.status}`);
+            }
+    
+        console.log('Successfully loaded:', filename);
                 const { metadata, content } = parseFrontmatter(mdContent);
                 
                 // Create project object
