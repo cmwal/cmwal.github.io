@@ -1,40 +1,6 @@
 // Global projects array
 let projects = [];
 
-// Theme toggle functionality
-function toggleTheme() {
-    const body = document.body;
-    const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    if (newTheme === 'dark') {
-        body.classList.add('dark-theme');
-    } else {
-        body.classList.remove('dark-theme');
-    }
-    
-    // Save preference in memory
-    window.themePreference = newTheme;
-}
-
-// Load theme preference on page load
-function loadThemePreference() {
-    // Default to dark theme
-    let theme = 'dark';
-    
-    // Check if there's a saved preference in memory
-    if (window.themePreference) {
-        theme = window.themePreference;
-    }
-    
-    // Apply theme
-    if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-    } else {
-        document.body.classList.remove('dark-theme');
-    }
-}
-
 // Parse frontmatter from markdown
 function parseFrontmatter(content) {
     const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
@@ -148,16 +114,14 @@ function parseMarkdown(md) {
 // Load all markdown files from projects directory
 async function loadProjects() {
     try {
-        // Add cache-busting parameter to force fresh fetch
-        const cacheBuster = new Date().getTime();
-        const response = await fetch(`projects/projects.json?v=${cacheBuster}`);
+        // Get list of markdown files from projects directory
+        const response = await fetch('projects/projects.json');
         const fileList = await response.json();
         
         // Load each markdown file
         const projectPromises = fileList.map(async filename => {
             try {
-                // Add cache-busting to markdown files too
-                const mdResponse = await fetch(`projects/${filename}?v=${cacheBuster}`);
+                const mdResponse = await fetch(`projects/${filename}`);
                 const mdContent = await mdResponse.text();
                 const { metadata, content } = parseFrontmatter(mdContent);
                 
@@ -257,11 +221,7 @@ function renderProjectGrid(containerId, projectsList) {
     projectsList.forEach(project => {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.onclick = (e) => {
-            e.preventDefault();
-            showProjectDetail(project.id);
-            return false;
-        };
+        card.onclick = () => showProjectDetail(project.id);
         
         card.innerHTML = `
             <div class="project-image" style="background-image: url('${project.image}')"></div>
@@ -286,12 +246,9 @@ function populateDropdown() {
         const item = document.createElement('a');
         item.className = 'dropdown-item';
         item.textContent = project.title;
-        item.href = 'javascript:void(0);';
         item.onclick = (e) => {
             e.preventDefault();
-            e.stopPropagation();
             showProjectDetail(project.id);
-            return false;
         };
         dropdown.appendChild(item);
     });
@@ -303,7 +260,6 @@ function showHome() {
     document.getElementById('projectsPage').classList.add('hidden');
     document.getElementById('projectDetailPage').classList.add('hidden');
     window.scrollTo(0, 0);
-    return false; // Prevent default link behavior
 }
 
 function showProjects() {
@@ -311,12 +267,11 @@ function showProjects() {
     document.getElementById('projectsPage').classList.remove('hidden');
     document.getElementById('projectDetailPage').classList.add('hidden');
     window.scrollTo(0, 0);
-    return false; // Prevent default link behavior
 }
 
 function showProjectDetail(projectId) {
     const project = projects.find(p => p.id === projectId);
-    if (!project) return false;
+    if (!project) return;
     
     document.getElementById('homePage').classList.add('hidden');
     document.getElementById('projectsPage').classList.add('hidden');
@@ -326,11 +281,9 @@ function showProjectDetail(projectId) {
     content.innerHTML = parseMarkdown(project.markdown);
     
     window.scrollTo(0, 0);
-    return false; // Prevent default link behavior
 }
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-    loadThemePreference();
     loadProjects();
 });
