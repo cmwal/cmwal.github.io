@@ -15,7 +15,7 @@ Update these in the HTML file:
 **Hero Section** (around line 438):
 ```html
 <h1>Hi, I'm Callum</h1>
-<p>Engineering Student & Creator</p>
+<p>Student & Creator</p>
 ```
 
 ### 2. Resume
@@ -134,8 +134,7 @@ This text is centered
 **3D Model Requirements:**
 - Format: `.glb` or `.gltf` files only
 - Put in a `models/` folder
-- Export from Fusion 360: Export as OBJ/STL → Convert to GLB using online converter
-- Recommended: https://products.aspose.app/3d/conversion/obj-to-glb
+- Export from Fusion 360: Export as OBJ/STL → Convert to GLB using blender
 
 **3D Viewer Controls:**
 - Click and drag: Rotate model
@@ -240,24 +239,23 @@ The final build used 6 servo motors and a custom PCB for control.
 5. Verify all images load
 6. Test on mobile (resize browser window)
 
+or
+
+1. Download Live Server
+2. Right click on `index.html`
+3. Click on "Open With Live Server"
+4. Test as normal
+
 ---
 
 ## Deployment
 
 To put your site online:
 
-1. **GitHub Pages** (Free):
+    **GitHub Pages** (Free):
    - Create GitHub account
-   - Upload all files to a repository
+   - Clone repository
    - Enable GitHub Pages in settings
-
-2. **Netlify** (Free):
-   - Drag and drop your folder to netlify.com
-   - Instant deployment
-
-3. **Custom Domain** (Optional):
-   - Buy domain from Namecheap, Google Domains, etc.
-   - Point it to your GitHub Pages or Netlify site
 
 ---
 
@@ -267,5 +265,3 @@ To put your site online:
 - Make sure all file paths are correct
 - Verify file names match exactly (case-sensitive)
 - Test one change at a time
-
-Good luck with your portfolio! 🚀
