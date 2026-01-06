@@ -3,75 +3,693 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Callum Walters - Engineering Portfolio</title>
-    <link rel="stylesheet" href="styles/theme.css">
+    <title>Callum Walters - Engineering Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark: #1a1a1c;
+            --gray: #2c2b30;
+            --light: #d6d6d6;
+            --pink: #f2c4ce;
+            --orange: #f58f7c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: var(--gray);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--orange);
+            cursor: pointer;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--orange);
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--gray);
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            margin-top: 0.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content::before {
+            content: '';
+            position: absolute;
+            top: -0.5rem;
+            left: 0;
+            right: 0;
+            height: 0.5rem;
+            background: transparent;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 0.5rem 1rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: var(--dark);
+            color: var(--orange);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--gray) 0%, var(--dark) 100%);
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--orange);
+            font-size: 1.1rem;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            border: 2px solid var(--orange);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--orange);
+            color: var(--dark);
+            box-shadow: 0 8px 20px rgba(245, 143, 124, 0.5);
+            transform: translateY(-3px);
+        }
+
+        h2 {
+            color: var(--orange);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .resume-title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .project-card {
+            background-color: var(--gray);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(245, 143, 124, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 0.9rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            color: var(--orange);
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-description {
+            color: var(--light);
+            line-height: 1.5;
+        }
+
+        .project-date {
+            color: var(--pink);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .resume-section {
+            background-color: var(--gray);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .resume-container {
+            background-color: var(--gray);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .resume-embed {
+            width: 100%;
+            height: 1000px;
+            border: none;
+            border-radius: 12px;
+            background-color: white;
+        }
+
+        .project-header {
+            background-color: var(--gray);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--orange);
+        }
+
+        .project-detail-title {
+            color: var(--orange);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-detail-date {
+            color: var(--pink);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-detail-description {
+            color: var(--light);
+            font-size: 1.2rem;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .project-main-image {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 3px solid var(--orange);
+        }
+
+        .model-viewer {
+            width: 100%;
+            max-width: 800px;
+            height: 500px;
+            border-radius: 8px;
+            margin: 1.5rem auto;
+            display: block;
+            background-color: var(--gray);
+            border: 2px solid var(--orange);
+        }
+
+        .model-container {
+            text-align: center;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .model-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--orange);
+            font-size: 1.2rem;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
-        <div class="nav-container">
-            <a href="#" class="logo" onclick="showHome(); return false;">Callum Walters</a>
-            <ul class="nav-links">
-                <li class="nav-item">
-                    <a class="nav-link" onclick="showHome(); return false;">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" onclick="showProjects(); return false;">Projects</a>
-                    <div class="dropdown" id="projectsDropdown"></div>
-                </li>
-            </ul>
-        </div>
+        <div class="nav-brand" onclick="showPage('home')">Callum Walters</div>
+        <ul>
+            <li><a href="#" onclick="showPage('home')">Home</a></li>
+            <li class="dropdown">
+                <a href="#" onclick="showPage('projects')">Projects ▾</a>
+                <div class="dropdown-content" id="dropdown-projects"></div>
+            </li>
+            <li><a href="#" onclick="showPage('resume')">Resume</a></li>
+        </ul>
     </nav>
 
-    <main>
-        <!-- Home Page -->
-        <div id="homePage">
-            <!-- Hero Section -->
-            <section class="hero">
-                <div class="container">
-                    <h1>Engineering & Computer Science</h1>
-                    <p>I'm a passionate engineer and computer scientist working on innovative projects that solve real-world problems. Explore my work below.</p>
-                    <div class="social-links">
-                        <a href="https://github.com/Calzi31" target="_blank" class="social-btn">GitHub</a>
-                        <a href="https://www.youtube.com/@Calzi31" target="_blank" class="social-btn">Youtube</a>
-                        <a href="mailto:your.email@example.com" class="social-btn">Contact</a>
-                    </div>
+    <div class="container">
+        <div id="home" class="page active">
+            <div class="hero">
+                <h1>Hi, I'm Callum</h1>
+                <p>Student & Creator</p>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@Calzi31" target="_blank">YouTube</a>
+                    <a href="https://github.com/Calzi31" target="_blank">GitHub</a>
+                    <a href="mailto:callumwalters131@gmail.com">Email</a>
                 </div>
-            </section>
+            </div>
 
-            <!-- Featured Projects -->
-            <section>
-                <div class="container">
-                    <h2 class="section-title">Featured Projects</h2>
-                    <div class="projects-grid" id="featuredProjects"></div>
-                </div>
-            </section>
+            <h2>Featured Projects</h2>
+            <div class="projects-grid" id="featured-projects"></div>
         </div>
 
-        <!-- Projects Gallery Page -->
-        <div id="projectsPage" class="hidden">
-            <section style="padding-top: 4rem;">
-                <div class="container">
-                    <h2 class="section-title">All Projects</h2>
-                    <div class="projects-grid" id="allProjects"></div>
-                </div>
-            </section>
+        <div id="projects" class="page">
+            <h2>All Projects</h2>
+            <div class="projects-grid" id="all-projects"></div>
         </div>
 
-        <!-- Project Detail Page -->
-        <div id="projectDetailPage" class="hidden">
-            <section style="padding-top: 4rem;">
-                <div class="container">
-                    <button class="back-btn" onclick="showProjects()">← Back to Projects</button>
-                    <div class="project-detail">
-                        <div class="markdown-content" id="projectContent"></div>
-                    </div>
-                </div>
-            </section>
+        <div id="project-detail" class="page">
+            <button onclick="showPage('projects')" style="background-color: var(--pink); color: var(--dark); border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; margin-bottom: 2rem;">← Back to Projects</button>
+            <div id="project-detail-content"></div>
         </div>
-    </main>
 
-    
-    <script src="js/main.js"></script>
+        <div id="resume" class="page">
+            <h2 class="resume-title">Resume</h2>
+            <div class="resume-container">
+                <iframe id="resume-viewer" class="resume-embed" src=""></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+        window.THREE = THREE;
+        window.GLTFLoader = GLTFLoader;
+
+        var projectsData = `
+TITLE: Derf 150g Vertical Drum Spinner
+DATE: October 2025
+DESCRIPTION: A 150g ant-weight drum spinner fully designed by me using the llama forge board. This design has competed in 3 competitions and i have been iterating on it over time.
+IMAGE: images/Derf-v4-comp.png
+YOUTUBE:
+FEATURED: yes
+---
+
+[IMG: images/Derf-v4-CAD.png | Derf v4 chasis]
+[IMG: images/Derf-v3-CAD.png | Derf v3 chasis]
+
+In this iteration I worked on increasing the structural rigidity of the chassis and removing unneeded space & weight.
+This is because in the v3 iteration the base broke in both of the chassis i brought to the event. 
+The introduction of inward curving walls helps distribute the blow of horizontal spinners, which accounts for a decent amount of bots in this weight class.
+
+[IMG: images/Derf-v3-comp.png | Derf v3 at competition]
+
+===
+
+TITLE: IM30 Pole Mount
+DATE: January 2025
+DESCRIPTION: Pole mount for the IM30 validator to be used in busses
+IMAGE: images/IM30-CAD.png
+YOUTUBE:
+FEATURED: yes
+---
+<h3 style="text-align: center;">The PAX IM30 is an all-in-one, Android-based payment terminal designed for self-service environments like vending machines, kiosks, EV chargers, parking meters, and public transport. The pole mount securely holds the IM30 on a bus pole, making it easy for passengers to use and keeping it stable while the bus is moving.</h3>
+
+[IMG: images/Pax-IM30.webp | PAX IM30 Validator]
+
+The first version of the IM30 pole mount was mainly about making a case that fit the validator comfortably. Before building the full mount, I 3D printed part of the model to check the fit, made some adjustments, and printed it again.
+
+[3D: 3D models/IM30_Pole_Mount_V1.glb | IM30 Pole Mount v1 3D Model | 6]
+
+The second version of the mount introduced the pole clamp. This used four screws to tighten the two halves of the clamp together around the pole, ensuring a secure fit. However, this design had some issues with stability, as the mount could still move up and down the pole. This was because the perfect circular clamp shape was the size of the pole, so it had limited clamping force.
+
+[3D: 3D models/IM30_Pole_Mount_V2.glb | IM30 Pole Mount v2 3D Model | 7]
+
+The third version of the IM30 pole mount added a better camera and the addition of a diagonal cutout on the front bottom edge of the mount to fit the shape of the IM30. These changes were to allow for clearer images when scanning QR codes. Additionally, the pole clamp was redesigned to be slightly smaller than the pole diameter. This allowed the screws to tighten the clamp more effectively, improving stability. However, there were still some issues with the mount sliding down the pole over time. 
+
+[3D: 3D models/IM30_Pole_Mount_V3.glb | IM30 Pole Mount v3 3D Model | 7]
+
+[3D: 3D models/IM30_Pole_Mount_V4.glb | IM30 Pole Mount v4 3D Model | 7]
+
+[3D: 3D models/IM30_Pole_Mount_V5.glb | IM30 Pole Mount v5 3D Model | 5]
+
+===
+`;
+
+        function parseProjects(data) {
+            var projects = [];
+            var projectBlocks = data.trim().split('===').filter(function(b) { return b.trim(); });
+            
+            projectBlocks.forEach(function(block) {
+                var lines = block.trim().split('\n');
+                var project = {};
+                var contentStart = -1;
+                
+                for (var i = 0; i < lines.length; i++) {
+                    var line = lines[i].trim();
+                    if (line.indexOf('TITLE:') === 0) {
+                        project.title = line.substring(6).trim();
+                    } else if (line.indexOf('DATE:') === 0) {
+                        project.date = line.substring(5).trim();
+                    } else if (line.indexOf('DESCRIPTION:') === 0) {
+                        project.description = line.substring(12).trim();
+                    } else if (line.indexOf('IMAGE:') === 0) {
+                        project.image = line.substring(6).trim() || null;
+                    } else if (line.indexOf('YOUTUBE:') === 0) {
+                        project.youtube = line.substring(8).trim() || null;
+                    } else if (line.indexOf('FEATURED:') === 0) {
+                        project.featured = line.substring(9).trim().toLowerCase() === 'yes';
+                    } else if (line === '---') {
+                        contentStart = i + 1;
+                        break;
+                    }
+                }
+                
+                if (contentStart !== -1) {
+                    var contentLines = lines.slice(contentStart).join('\n').trim();
+                    
+                    contentLines = contentLines.replace(/\[IMG:\s*([^\]|]+)(?:\|\s*([^\]]+))?\]/g, function(match, url, caption) {
+                        var html = '<div style="text-align: center;"><img src="' + url.trim() + '" style="width: 100%; max-width: 800px; height: auto; border-radius: 8px; margin: 1.5rem auto; display: inline-block;"></div>';
+                        if (caption) {
+                            html += '<p style="text-align: center; color: var(--pink); font-style: italic; margin-top: -1rem; margin-bottom: 1.5rem;">' + caption.trim() + '</p>';
+                        }
+                        return html;
+                    });
+                    
+                    contentLines = contentLines.replace(/\[3D:\s*([^\]|]+)(?:\|\s*([^|]+?))?(?:\|\s*([\d.]+))?\]/g, function(match, modelPath, caption, zoom) {
+                        var viewerId = 'model-' + Math.random().toString(36).substr(2, 9);
+                        var zoomValue = zoom ? zoom.trim() : '3';
+                        var html = '<div class="model-container"><div class="model-loading" id="loading-' + viewerId + '">Loading 3D Model...</div><canvas id="' + viewerId + '" class="model-viewer" data-model="' + modelPath.trim() + '" data-zoom="' + zoomValue + '"></canvas></div>';
+                        if (caption) {
+                            html += '<p style="text-align: center; color: var(--pink); font-style: italic; margin-top: -1rem; margin-bottom: 1.5rem;">' + caption.trim() + '</p>';
+                        }
+                        return html;
+                    });
+                    
+                    project.content = '<div style="white-space: pre-wrap; line-height: 1.8;">' + contentLines + '</div>';
+                }
+                
+                if (project.title) {
+                    projects.push(project);
+                }
+            });
+            
+            return projects;
+        }
+
+        var projects = parseProjects(projectsData);
+        projects.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+
+        var featuredProjects = projects.filter(function(p) { return p.featured; });
+
+        window.showPage = function(pageName) {
+            var pages = document.querySelectorAll('.page');
+            pages.forEach(function(p) { p.classList.remove('active'); });
+            document.getElementById(pageName).classList.add('active');
+            window.scrollTo(0, 0);
+        };
+
+        window.showProject = function(index) {
+            var project = projects[index];
+            var content = document.getElementById('project-detail-content');
+            
+            var youtubeEmbed = '';
+            if (project.youtube) {
+                youtubeEmbed = '<div style="margin-top: 2rem;"><h4 style="color: var(--orange); margin-bottom: 1rem;">Project Video</h4><div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;"><iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;" src="https://www.youtube.com/embed/' + project.youtube + '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div></div>';
+            }
+            
+            var imageHtml = '';
+            if (project.image) {
+                imageHtml = '<img src="' + project.image + '" class="project-main-image" alt="' + project.title + '">';
+            }
+            
+            content.innerHTML = imageHtml + '<div class="project-header"><h1 class="project-detail-title">' + project.title + '</h1><p class="project-detail-date">' + project.date + '</p><p class="project-detail-description">' + project.description + '</p></div><div class="resume-section"><div style="margin-top: 1.5rem;">' + project.content + '</div>' + youtubeEmbed + '</div>';
+            
+            showPage('project-detail');
+            
+            setTimeout(function() {
+                var canvases = content.querySelectorAll('.model-viewer');
+                canvases.forEach(function(canvas) {
+                    var modelPath = canvas.getAttribute('data-model');
+                    var initialZoom = canvas.getAttribute('data-zoom');
+                    if (modelPath) {
+                        initModelViewer(canvas.id, modelPath, initialZoom);
+                    }
+                });
+            }, 100);
+        };
+
+        function createProjectCard(project, index) {
+            var imageHtml = project.image ? '<img src="' + project.image + '" class="project-image" alt="' + project.title + '">' : '<div class="project-image">No image available</div>';
+            
+            return '<div class="project-card" onclick="showProject(' + index + ')">' + imageHtml + '<div class="project-content"><div class="project-title">' + project.title + '</div><div class="project-description">' + project.description + '</div><div class="project-date">' + project.date + '</div></div></div>';
+        }
+
+        document.getElementById('featured-projects').innerHTML = featuredProjects.map(function(p) {
+            var originalIndex = projects.indexOf(p);
+            return createProjectCard(p, originalIndex);
+        }).join('');
+
+        document.getElementById('all-projects').innerHTML = projects.map(function(p, i) {
+            return createProjectCard(p, i);
+        }).join('');
+
+        document.getElementById('dropdown-projects').innerHTML = projects.slice(0, 5).map(function(p, i) {
+            return '<a href="#" onclick="showProject(' + i + '); return false;">' + p.title + '</a>';
+        }).join('');
+
+        window.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('resume-viewer').src = 'resume.pdf';
+        });
+
+        function initModelViewer(canvasId, modelPath, initialZoom) {
+            console.log('Initializing model viewer:', canvasId, modelPath);
+            
+            var canvas = document.getElementById(canvasId);
+            if (!canvas) {
+                console.error('Canvas not found:', canvasId);
+                return;
+            }
+
+            var loadingEl = document.getElementById('loading-' + canvasId);
+
+            var scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x2c2b30);
+            
+            var startDistance = initialZoom ? parseFloat(initialZoom) : 3;
+            
+            var camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+            camera.position.set(0, 0, startDistance);
+            
+            var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            
+            var ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            var directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+            
+            var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
+            directionalLight2.position.set(-5, 3, -5);
+            scene.add(directionalLight2);
+            
+            var loader = new GLTFLoader();
+            var modelGroup = new THREE.Group();
+            scene.add(modelGroup);
+            
+            loader.load(
+                modelPath,
+                function(gltf) {
+                    console.log('Model loaded successfully:', modelPath);
+                    if (loadingEl) loadingEl.style.display = 'none';
+                    
+                    var model = gltf.scene;
+                    
+                    var box = new THREE.Box3().setFromObject(model);
+                    var center = box.getCenter(new THREE.Vector3());
+                    var size = box.getSize(new THREE.Vector3());
+                    var maxDim = Math.max(size.x, size.y, size.z);
+                    var scale = 4 / maxDim;
+                    
+                    model.scale.multiplyScalar(scale);
+                    model.position.sub(center.multiplyScalar(scale));
+                    
+                    modelGroup.add(model);
+                },
+                function(xhr) {
+                    var percentComplete = xhr.total > 0 ? (xhr.loaded / xhr.total * 100).toFixed(0) : '...';
+                    console.log(percentComplete + '% loaded');
+                    if (loadingEl) loadingEl.textContent = 'Loading: ' + percentComplete + '%';
+                },
+                function(error) {
+                    console.error('Error loading model:', error);
+                    if (loadingEl) {
+                        loadingEl.textContent = 'Error loading model';
+                        loadingEl.style.color = '#f58f7c';
+                    }
+                }
+            );
+            
+            var isDragging = false;
+            var previousMousePosition = { x: 0, y: 0 };
+            var distance = startDistance;
+            
+            canvas.addEventListener('mousedown', function(e) {
+                isDragging = true;
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            });
+            
+            canvas.addEventListener('mousemove', function(e) {
+                if (isDragging && modelGroup) {
+                    var deltaX = e.clientX - previousMousePosition.x;
+                    var deltaY = e.clientY - previousMousePosition.y;
+                    
+                    modelGroup.rotation.y += deltaX * 0.01;
+                    modelGroup.rotation.x += deltaY * 0.01;
+                    
+                    previousMousePosition = { x: e.clientX, y: e.clientY };
+                }
+            });
+            
+            canvas.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+            
+            canvas.addEventListener('mouseleave', function() {
+                isDragging = false;
+            });
+            
+            canvas.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                distance += e.deltaY * 0.005;
+                distance = Math.max(0.5, Math.min(10, distance));
+                camera.position.z = distance;
+            });
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                camera.lookAt(scene.position);
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+
+        window.initModelViewer = initModelViewer;
+    </script>
 </body>
 </html>
