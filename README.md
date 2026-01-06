@@ -252,7 +252,7 @@ or
 
 To put your site online:
 
-    **GitHub Pages** (Free):
+      GitHub Pages (Free):
    - Create GitHub account
    - Clone repository
    - Enable GitHub Pages in settings
