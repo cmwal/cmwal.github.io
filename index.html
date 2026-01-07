@@ -258,9 +258,14 @@
             background-color: white;
         }
 
-        .resume-container iframe {
-            transform: scale(1);
-            transform-origin: top left;
+        @media (max-width: 768px) {
+            .resume-embed {
+                width: 100%;
+                height: 70vh;
+                min-height: 500px;
+                transform: scale(0.95);
+                transform-origin: top center;
+            }
         }
 
         .project-header {
@@ -348,7 +353,7 @@
             opacity: 1;
         }
 
-        @media (max-width: 768px) {
+            @media (max-width: 768px) {
             nav {
                 flex-direction: column;
                 gap: 1rem;
@@ -404,21 +409,6 @@
 
             .resume-title {
                 font-size: 2rem;
-            }
-
-            .resume-embed {
-                height: 70vh;
-                min-height: 500px;
-            }
-
-            .resume-container {
-                padding: 0.5rem;
-                overflow-x: auto;
-            }
-
-            .resume-container iframe {
-                width: 100%;
-                min-width: 100%;
             }
 
             .model-viewer {
@@ -620,60 +610,46 @@ The introduction of inward curving walls helps distribute the blow of horizontal
 
         var featuredProjects = projects.filter(function(p) { return p.featured; });
 
-        var lastScrollTop = 0;
-        var navbar = document.querySelector('nav');
-        var isMobile = window.innerWidth <= 768;
-
-        window.addEventListener('scroll', function() {
-            if (window.innerWidth <= 768) {
-                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > lastScrollTop && scrollTop > 100) {
-                    navbar.classList.add('hidden');
-                } else {
-                    navbar.classList.remove('hidden');
-                }
-                
-                lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-            }
-        });
-
-        window.addEventListener('resize', function() {
-            if (window.innerWidth > 768) {
-                navbar.classList.remove('hidden');
-            }
-        });
-
         window.toggleDropdown = function(event) {
             event.preventDefault();
             event.stopPropagation();
-            
             var isMobile = window.innerWidth <= 768;
-            var dropdown = document.getElementById('projects-dropdown');
-            
             if (isMobile) {
-                var isActive = dropdown.classList.contains('active');
+                var dropdown = document.getElementById('projects-dropdown');
                 dropdown.classList.toggle('active');
-                
-                if (!isActive) {
-                    document.addEventListener('click', closeDropdownOnClickOutside);
-                } else {
-                    document.removeEventListener('click', closeDropdownOnClickOutside);
-                }
             } else {
                 showPage('projects');
             }
         };
 
-        function closeDropdownOnClickOutside(event) {
+        document.addEventListener('click', function(event) {
             var dropdown = document.getElementById('projects-dropdown');
-            var dropdownLink = dropdown.previousElementSibling;
-            
-            if (!dropdown.contains(event.target) && event.target !== dropdownLink) {
-                dropdown.classList.remove('active');
-                document.removeEventListener('click', closeDropdownOnClickOutside);
+            var isMobile = window.innerWidth <= 768;
+            if (isMobile && dropdown && dropdown.classList.contains('active')) {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('active');
+                }
             }
-        }
+        });
+
+        var lastScrollTop = 0;
+        var navBar = document.querySelector('nav');
+        var scrollThreshold = 100;
+
+        window.addEventListener('scroll', function() {
+            var isMobile = window.innerWidth <= 768;
+            if (!isMobile) return;
+
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                navBar.classList.add('hidden');
+            } else {
+                navBar.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        });
 
         window.showPage = function(pageName) {
             var pages = document.querySelectorAll('.page');
@@ -683,12 +659,11 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             var dropdown = document.getElementById('projects-dropdown');
             if (dropdown) {
                 dropdown.classList.remove('active');
-                document.removeEventListener('click', closeDropdownOnClickOutside);
             }
             
-            var navbar = document.querySelector('nav');
-            if (navbar) {
-                navbar.classList.remove('hidden');
+            var navBar = document.querySelector('nav');
+            if (navBar) {
+                navBar.classList.remove('hidden');
             }
             
             window.scrollTo(0, 0);
@@ -740,7 +715,7 @@ The introduction of inward curving walls helps distribute the blow of horizontal
         }).join('');
 
         document.getElementById('dropdown-projects').innerHTML = projects.slice(0, 5).map(function(p, i) {
-            return '<a href="#" onclick="showProject(' + i + '); return false;">' + p.title + '</a>';
+            return '<a href="#" onclick="event.stopPropagation(); showProject(' + i + '); return false;">' + p.title + '</a>';
         }).join('');
 
         window.addEventListener('DOMContentLoaded', function() {
