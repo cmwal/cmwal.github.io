@@ -243,29 +243,145 @@
         }
 
         .resume-container {
-            background-color: var(--gray);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .resume-embed {
-            width: 100%;
-            height: 80vh;
-            min-height: 600px;
-            border: none;
-            border-radius: 12px;
             background-color: white;
+            color: #333;
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        @media (max-width: 768px) {
-            .resume-embed {
-                width: 100%;
-                height: 70vh;
-                min-height: 500px;
-                transform: scale(0.95);
-                transform-origin: top center;
-            }
+        .resume-download-btn {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--orange);
+            color: var(--dark);
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            max-width: 300px;
+            transition: all 0.3s;
+        }
+
+        .resume-download-btn:hover {
+            box-shadow: 0 8px 20px rgba(245, 143, 124, 0.5);
+            transform: translateY(-3px);
+        }
+
+        .resume-header {
+            text-align: center;
+            border-bottom: 3px solid #333;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .resume-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a1a1c;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-contact {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .resume-contact a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .resume-contact a:hover {
+            color: #f58f7c;
+        }
+
+        .resume-section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a1a1c;
+            border-bottom: 2px solid #f58f7c;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        .resume-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .resume-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .resume-item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1a1a1c;
+        }
+
+        .resume-item-date {
+            color: #666;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .resume-item-subtitle {
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-item-description {
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .resume-item-description ul {
+            margin-left: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .resume-item-description li {
+            margin-bottom: 0.3rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-category {
+            margin-bottom: 1rem;
+        }
+
+        .skill-category-title {
+            font-weight: 600;
+            color: #1a1a1c;
+            margin-bottom: 0.3rem;
+        }
+
+        .skill-list {
+            color: #555;
+            font-size: 0.95rem;
         }
 
         .project-header {
@@ -353,7 +469,7 @@
             opacity: 1;
         }
 
-            @media (max-width: 768px) {
+        @media (max-width: 768px) {
             nav {
                 flex-direction: column;
                 gap: 1rem;
@@ -409,6 +525,28 @@
 
             .resume-title {
                 font-size: 2rem;
+            }
+
+            .resume-container {
+                padding: 1.5rem;
+            }
+
+            .resume-name {
+                font-size: 2rem;
+            }
+
+            .resume-contact {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .resume-item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
             }
 
             .model-viewer {
@@ -468,8 +606,94 @@
 
         <div id="resume" class="page">
             <h2 class="resume-title">Resume</h2>
+            <a href="resume.pdf" download class="resume-download-btn">📥 Download PDF Resume</a>
             <div class="resume-container">
-                <iframe id="resume-viewer" class="resume-embed" src=""></iframe>
+                <div class="resume-header">
+                    <h1 class="resume-name">Callum Walters</h1>
+                    <div class="resume-contact">
+                        <span>📧 callumwalters131@gmail.com</span>
+                        <span>📍 Melbourne, Victoria, AU</span>
+                        <a href="https://github.com/Calzi31" target="_blank">💻 GitHub: Calzi31</a>
+                        <a href="https://www.youtube.com/@Calzi31" target="_blank">📺 YouTube: @Calzi31</a>
+                    </div>
+                </div>
+
+                <h2 class="resume-section-title">Education</h2>
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <div class="resume-item-title">Bachelor of Engineering (Honors) - Mechatronics</div>
+                        <div class="resume-item-date">Expected 2027</div>
+                    </div>
+                    <div class="resume-item-subtitle">University Name</div>
+                    <div class="resume-item-description">
+                        GPA: X.XX/4.0 | Relevant Coursework: Robotics, Control Systems, CAD Design
+                    </div>
+                </div>
+
+                <h2 class="resume-section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category-title">CAD & Design</div>
+                        <div class="skill-list">SolidWorks, Fusion 360, 3D Printing</div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Programming</div>
+                        <div class="skill-list">Python, C++, JavaScript</div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Electronics</div>
+                        <div class="skill-list">PCB Design, Arduino, Embedded Systems</div>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Manufacturing</div>
+                        <div class="skill-list">3D Printing, CNC, Laser Cutting</div>
+                    </div>
+                </div>
+
+                <h2 class="resume-section-title">Projects</h2>
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <div class="resume-item-title">IM30 Pole Mount</div>
+                        <div class="resume-item-date">January 2025 - Present</div>
+                    </div>
+                    <div class="resume-item-description">
+                        <ul>
+                            <li>Designed secure pole mount for PAX IM30 payment terminal for bus transportation</li>
+                            <li>Iterated through 5+ design versions improving clamp stability and camera positioning</li>
+                            <li>Optimized design for 3D printing with focus on structural rigidity and ease of installation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <div class="resume-item-title">Derf 150g Vertical Drum Spinner</div>
+                        <div class="resume-item-date">June 2024 - October 2024</div>
+                    </div>
+                    <div class="resume-item-description">
+                        <ul>
+                            <li>Designed and built 150g ant-weight combat robot from scratch using Llama Forge board</li>
+                            <li>Competed in 3 competitions, iterating design to improve structural integrity</li>
+                            <li>Implemented curved wall design to distribute impact forces from horizontal spinners</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h2 class="resume-section-title">Experience</h2>
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <div class="resume-item-title">Content Creator</div>
+                        <div class="resume-item-date">2020 - Present</div>
+                    </div>
+                    <div class="resume-item-subtitle">YouTube - Engineering & Design Channel</div>
+                    <div class="resume-item-description">
+                        <ul>
+                            <li>Document engineering projects and design processes for educational content</li>
+                            <li>Communicate complex technical concepts to diverse audiences</li>
+                            <li>Video editing and production using industry-standard tools</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -523,7 +747,7 @@ Additionally, the pole clamp was redesigned to be slightly smaller than the pole
 ===
 
 TITLE: Derf 150g Vertical Drum Spinner
-DATE: June 2025 - October 2025
+DATE: June 2024 - October 2024
 DESCRIPTION: A 150g ant-weight drum spinner fully designed by me using the llama forge board. This design has competed in 3 competitions and i have been iterating on it over time.
 IMAGE: images/Derf-v4-comp.png
 YOUTUBE:
@@ -717,10 +941,6 @@ The introduction of inward curving walls helps distribute the blow of horizontal
         document.getElementById('dropdown-projects').innerHTML = projects.slice(0, 5).map(function(p, i) {
             return '<a href="#" onclick="event.stopPropagation(); showProject(' + i + '); return false;">' + p.title + '</a>';
         }).join('');
-
-        window.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('resume-viewer').src = 'resume.pdf';
-        });
 
         function initModelViewer(canvasId, modelPath, initialZoom) {
             console.log('Initializing model viewer:', canvasId, modelPath);
