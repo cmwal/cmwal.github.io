@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,14 @@
             --light: #d6d6d6;
             --pink: #f2c4ce;
             --orange: #f58f7c;
+        }
+
+        :root[data-theme="light"] {
+            --dark: #f5f5f7;
+            --gray: #ffffff;
+            --light: #222222;
+            --pink: #d47a90;
+            --orange: #e07a5f;
         }
 
         body {
@@ -55,6 +63,56 @@
             display: flex;
             gap: 2rem;
             align-items: center;
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 50px;
+            height: 26px;
+            padding: 0;
+            border-radius: 999px;
+            border: 2px solid var(--orange);
+            background: rgba(0, 0, 0, 0.4);
+            display: inline-flex;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+            transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+            color: transparent;
+            font-size: 0;
+        }
+
+        .theme-toggle::before {
+            content: '☾';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--orange);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+            transform: translateX(3px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--dark);
+            transition: transform 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
+        }
+
+        html[data-theme="light"] .theme-toggle {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        html[data-theme="light"] .theme-toggle::before {
+            content: '☀';
+            transform: translateX(23px);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            color: var(--dark);
+        }
+
+        .theme-toggle:focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 3px;
         }
 
         nav a {
@@ -603,6 +661,9 @@
                 <div class="dropdown-content" id="dropdown-projects"></div>
             </li>
             <li><a href="#" onclick="showPage('resume')">Resume</a></li>
+            <li>
+                <button id="theme-toggle" class="theme-toggle" type="button">Toggle theme</button>
+            </li>
         </ul>
     </nav>
 
@@ -750,6 +811,58 @@
 
         window.THREE = THREE;
         window.GLTFLoader = GLTFLoader;
+
+        // Theme toggle (dark as default)
+        const THEME_STORAGE_KEY = 'site-theme';
+        const rootElement = document.documentElement;
+        const modelViewers = [];
+
+        function getSceneBackgroundColor(theme) {
+            const isDark = theme === 'light' ? false : true;
+            return isDark ? 0x2c2b30 : 0xf5f5f7;
+        }
+
+        function applyTheme(theme) {
+            const normalized = theme === 'light' ? 'light' : 'dark';
+            rootElement.setAttribute('data-theme', normalized);
+
+            const toggleBtn = document.getElementById('theme-toggle');
+            if (toggleBtn) {
+                toggleBtn.textContent = normalized === 'dark' ? 'Light mode' : 'Dark mode';
+                toggleBtn.setAttribute(
+                    'aria-label',
+                    normalized === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+                );
+            }
+
+            const bgColor = new THREE.Color(getSceneBackgroundColor(normalized));
+            modelViewers.forEach(function(viewer) {
+                if (viewer.scene && viewer.renderer) {
+                    viewer.scene.background = bgColor;
+                    viewer.renderer.setClearColor(bgColor);
+                }
+            });
+        }
+
+        (function initialiseTheme() {
+            const stored = localStorage.getItem(THEME_STORAGE_KEY);
+            const prefersDark = window.matchMedia &&
+                window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            // Dark is the default theme for the site
+            const initial = stored || (prefersDark ? 'dark' : 'dark');
+            applyTheme(initial);
+        })();
+
+        const themeToggleButton = document.getElementById('theme-toggle');
+        if (themeToggleButton) {
+            themeToggleButton.addEventListener('click', () => {
+                const current = rootElement.getAttribute('data-theme') || 'dark';
+                const next = current === 'dark' ? 'light' : 'dark';
+                applyTheme(next);
+                localStorage.setItem(THEME_STORAGE_KEY, next);
+            });
+        }
 
         var projectsData = `
 
@@ -977,7 +1090,9 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             var hintEl = document.getElementById('hint-' + canvasId);
 
             var scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x2c2b30);
+            var currentTheme = rootElement.getAttribute('data-theme') || 'dark';
+            var sceneBg = new THREE.Color(getSceneBackgroundColor(currentTheme));
+            scene.background = sceneBg;
             
             var startDistance = initialZoom ? parseFloat(initialZoom) : 3;
             
@@ -987,6 +1102,7 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
             renderer.setSize(canvas.clientWidth, canvas.clientHeight);
             renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setClearColor(sceneBg);
             
             var ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
             scene.add(ambientLight);
@@ -1002,6 +1118,8 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             var loader = new GLTFLoader();
             var modelGroup = new THREE.Group();
             scene.add(modelGroup);
+
+            modelViewers.push({ scene: scene, renderer: renderer });
             
             loader.load(
                 modelPath,
