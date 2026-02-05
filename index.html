@@ -282,38 +282,55 @@
         }
 
         .resume-name {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: #1a1a1c;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: 2px;
+        }
+
+        .resume-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
         }
 
         .resume-contact {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 1.5rem;
             flex-wrap: wrap;
             color: #555;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
-        .resume-contact a {
-            color: #555;
-            text-decoration: none;
+        .resume-contact span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
         }
 
-        .resume-contact a:hover {
-            color: #f58f7c;
+        .resume-two-column {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .resume-left-column {
+            padding-right: 1.5rem;
         }
 
         .resume-section-title {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #1a1a1c;
             border-bottom: 2px solid #f58f7c;
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
+            letter-spacing: 1px;
         }
 
         .resume-section-title:first-of-type {
@@ -325,63 +342,88 @@
         }
 
         .resume-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
             margin-bottom: 0.5rem;
-            flex-wrap: wrap;
         }
 
         .resume-item-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: #1a1a1c;
         }
 
         .resume-item-date {
             color: #666;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-style: italic;
+            margin-top: 0.2rem;
         }
 
         .resume-item-subtitle {
             color: #555;
             margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
 
         .resume-item-description {
             color: #444;
             line-height: 1.6;
+            font-size: 0.9rem;
         }
 
         .resume-item-description ul {
             margin-left: 1.5rem;
-            margin-top: 0.5rem;
+            margin-top: 0.3rem;
         }
 
         .resume-item-description li {
             margin-bottom: 0.3rem;
         }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem;
+        .skills-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .skill-category {
-            margin-bottom: 1rem;
+        .skills-list li {
+            padding: 0.4rem 0;
+            color: #444;
+            font-size: 0.9rem;
         }
 
-        .skill-category-title {
-            font-weight: 600;
-            color: #1a1a1c;
-            margin-bottom: 0.3rem;
+        .hobbies-list {
+            list-style: none;
+            padding: 0;
         }
 
-        .skill-list {
-            color: #555;
-            font-size: 0.95rem;
+        .hobbies-list li {
+            padding: 0.3rem 0;
+            color: #444;
+            font-size: 0.9rem;
+        }
+
+        .achievements-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .achievements-list li {
+            padding: 0.3rem 0;
+            color: #444;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .summary-text {
+            color: #444;
+            line-height: 1.6;
+            font-size: 0.9rem;
+            text-align: justify;
+        }
+
+        .availability-text {
+            color: #444;
+            line-height: 1.6;
+            font-size: 0.85rem;
         }
 
         .project-header {
@@ -482,29 +524,9 @@
                 width: 100%;
             }
 
-            .dropdown {
-                width: 100%;
-                text-align: center;
-            }
-
-            .dropdown-content {
-                position: static;
+            /* Hide dropdown on mobile - direct link instead */
+            .dropdown:hover .dropdown-content {
                 display: none;
-                margin-top: 0.5rem;
-                box-shadow: none;
-                background-color: var(--dark);
-            }
-
-            .dropdown.active .dropdown-content {
-                display: block;
-            }
-
-            .dropdown > a::after {
-                content: ' ▾';
-            }
-
-            .dropdown.active > a::after {
-                content: ' ▴';
             }
 
             .hero h1 {
@@ -535,18 +557,24 @@
                 font-size: 2rem;
             }
 
+            .resume-subtitle {
+                font-size: 1rem;
+                letter-spacing: 2px;
+            }
+
             .resume-contact {
                 flex-direction: column;
                 gap: 0.5rem;
+                align-items: center;
             }
 
-            .resume-item-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .skills-grid {
+            .resume-two-column {
                 grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .resume-left-column {
+                padding-right: 0;
             }
 
             .model-viewer {
@@ -571,7 +599,7 @@
         <ul>
             <li><a href="#" onclick="showPage('home')">Home</a></li>
             <li class="dropdown" id="projects-dropdown">
-                <a href="#" onclick="toggleDropdown(event)">Projects</a>
+                <a href="#" onclick="handleProjectsClick(event)">Projects</a>
                 <div class="dropdown-content" id="dropdown-projects"></div>
             </li>
             <li><a href="#" onclick="showPage('resume')">Resume</a></li>
@@ -609,89 +637,99 @@
             <a href="resume.pdf" download class="resume-download-btn">📥 Download PDF Resume</a>
             <div class="resume-container">
                 <div class="resume-header">
-                    <h1 class="resume-name">Callum Walters</h1>
+                    <h1 class="resume-name">CALLUM WALTERS</h1>
+                    <p class="resume-subtitle">STUDENT</p>
                     <div class="resume-contact">
-                        <span>📧 callumwalters131@gmail.com</span>
-                        <span>📍 Melbourne, Victoria, AU</span>
-                        <a href="https://github.com/Calzi31" target="_blank">💻 GitHub: Calzi31</a>
-                        <a href="https://www.youtube.com/@Calzi31" target="_blank">📺 YouTube: @Calzi31</a>
+                        <span>📞 +61 402 239 473</span>
+                        <span>📧 Callum_walters@me.com</span>
+                        <span>📍 Beaumaris VIC 3193</span>
                     </div>
                 </div>
 
-                <h2 class="resume-section-title">Education</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <div class="resume-item-title">Bachelor of Engineering (Honors) - Mechatronics</div>
-                        <div class="resume-item-date">Expected 2027</div>
-                    </div>
-                    <div class="resume-item-subtitle">University Name</div>
-                    <div class="resume-item-description">
-                        GPA: X.XX/4.0 | Relevant Coursework: Robotics, Control Systems, CAD Design
-                    </div>
-                </div>
+                <div class="resume-two-column">
+                    <div class="resume-left-column">
+                        <h2 class="resume-section-title">SUMMARY</h2>
+                        <p class="summary-text">I am a motivated high school student with experience in customer service and technical projects. Happy to work independently and in a team, quick learner, good communicator and confident with technology. Looking for a casual role in retail, hospitality, or a technical environment where I can gain experience and contribute positively.</p>
 
-                <h2 class="resume-section-title">Technical Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <div class="skill-category-title">CAD & Design</div>
-                        <div class="skill-list">SolidWorks, Fusion 360, 3D Printing</div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-category-title">Programming</div>
-                        <div class="skill-list">Python, C++, JavaScript</div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-category-title">Electronics</div>
-                        <div class="skill-list">PCB Design, Arduino, Embedded Systems</div>
-                    </div>
-                    <div class="skill-category">
-                        <div class="skill-category-title">Manufacturing</div>
-                        <div class="skill-list">3D Printing, CNC, Laser Cutting</div>
-                    </div>
-                </div>
-
-                <h2 class="resume-section-title">Projects</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <div class="resume-item-title">IM30 Pole Mount</div>
-                        <div class="resume-item-date">January 2025 - Present</div>
-                    </div>
-                    <div class="resume-item-description">
-                        <ul>
-                            <li>Designed secure pole mount for PAX IM30 payment terminal for bus transportation</li>
-                            <li>Iterated through 5+ design versions improving clamp stability and camera positioning</li>
-                            <li>Optimized design for 3D printing with focus on structural rigidity and ease of installation</li>
+                        <h2 class="resume-section-title">SKILLS</h2>
+                        <ul class="skills-list">
+                            <li>CAD design (Fusion 360)</li>
+                            <li>3D printing (FDM)</li>
+                            <li>Soldering & electronics</li>
+                            <li>Basic coding</li>
+                            <li>Photography and photo editing</li>
+                            <li>Microsoft Office (basics in Excel)</li>
                         </ul>
-                    </div>
-                </div>
 
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <div class="resume-item-title">Derf 150g Vertical Drum Spinner</div>
-                        <div class="resume-item-date">June 2024 - October 2024</div>
-                    </div>
-                    <div class="resume-item-description">
-                        <ul>
-                            <li>Designed and built 150g ant-weight combat robot from scratch using Llama Forge board</li>
-                            <li>Competed in 3 competitions, iterating design to improve structural integrity</li>
-                            <li>Implemented curved wall design to distribute impact forces from horizontal spinners</li>
+                        <h2 class="resume-section-title">HOBBIES</h2>
+                        <ul class="hobbies-list">
+                            <li>Mountain biking</li>
+                            <li>Cooking and baking</li>
+                            <li>Lacrosse</li>
+                            <li>Combat robotics</li>
                         </ul>
-                    </div>
-                </div>
 
-                <h2 class="resume-section-title">Experience</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <div class="resume-item-title">Content Creator</div>
-                        <div class="resume-item-date">2020 - Present</div>
-                    </div>
-                    <div class="resume-item-subtitle">YouTube - Engineering & Design Channel</div>
-                    <div class="resume-item-description">
-                        <ul>
-                            <li>Document engineering projects and design processes for educational content</li>
-                            <li>Communicate complex technical concepts to diverse audiences</li>
-                            <li>Video editing and production using industry-standard tools</li>
+                        <h2 class="resume-section-title">COMMUNITY</h2>
+                        <ul class="hobbies-list">
+                            <li>Helping elderly neighbours and grandparents with technology</li>
+                            <li>During COVID I organised an online fundraising event for Scouts</li>
                         </ul>
+
+                        <h2 class="resume-section-title">REFERENCES</h2>
+                        <p class="summary-text">Available on request</p>
+                    </div>
+
+                    <div class="resume-right-column">
+                        <h2 class="resume-section-title">EDUCATION</h2>
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <div class="resume-item-title">Year 10</div>
+                            </div>
+                            <div class="resume-item-subtitle">Beaumaris Secondary College</div>
+                            <div style="margin-top: 0.8rem;">
+                                <p style="font-weight: 600; color: #1a1a1c; margin-bottom: 0.5rem; font-size: 0.95rem;">Achievements</p>
+                                <ul class="achievements-list">
+                                    <li>First place – Innovate Expo (prosthetic finger)</li>
+                                    <li>Curiosity Award (Innovate)</li>
+                                    <li>APSMO Maths Olympiad Award</li>
+                                    <li>CORE Values Awards: Mathematics & Be a Filmmaker</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h2 class="resume-section-title">WORK EXPERIENCE</h2>
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <div class="resume-item-title">CAD Designer & Product Manufacturer</div>
+                                <div class="resume-item-date">Oct/2025 - Present</div>
+                            </div>
+                            <div class="resume-item-subtitle">TikPay</div>
+                            <div class="resume-item-description">
+                                <ul>
+                                    <li>Design and manufacture public transport validator mounts</li>
+                                    <li>Used Fusion 360 for CAD modelling</li>
+                                    <li>Used FDM 3D printing for Manufacturing</li>
+                                    <li>Iterated designs to improve fit, durability and add new features to improve customer experience</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="resume-item">
+                            <div class="resume-item-header">
+                                <div class="resume-item-title">Pharmacy Delivery Person</div>
+                                <div class="resume-item-date">Jan/2025 - Present</div>
+                            </div>
+                            <div class="resume-item-subtitle">Beaumaris Pharmacy</div>
+                            <div class="resume-item-description">
+                                <ul>
+                                    <li>Deliver prescriptions to customers' houses</li>
+                                    <li>Cleaning, sorting scripts, and daily tasks</li>
+                                    <li>Follow instructions carefully and work independently</li>
+                                    <li>Maintain a clean and organised workplace</li>
+                                    <li>Customer service skills</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -834,27 +872,16 @@ The introduction of inward curving walls helps distribute the blow of horizontal
 
         var featuredProjects = projects.filter(function(p) { return p.featured; });
 
-        window.toggleDropdown = function(event) {
+        // Handle Projects click - desktop shows dropdown, mobile goes to page
+        window.handleProjectsClick = function(event) {
             event.preventDefault();
-            event.stopPropagation();
             var isMobile = window.innerWidth <= 768;
             if (isMobile) {
-                var dropdown = document.getElementById('projects-dropdown');
-                dropdown.classList.toggle('active');
-            } else {
+                // On mobile, go straight to projects page
                 showPage('projects');
             }
+            // On desktop, the CSS hover will handle the dropdown
         };
-
-        document.addEventListener('click', function(event) {
-            var dropdown = document.getElementById('projects-dropdown');
-            var isMobile = window.innerWidth <= 768;
-            if (isMobile && dropdown && dropdown.classList.contains('active')) {
-                if (!dropdown.contains(event.target)) {
-                    dropdown.classList.remove('active');
-                }
-            }
-        });
 
         var lastScrollTop = 0;
         var navBar = document.querySelector('nav');
@@ -879,11 +906,6 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             var pages = document.querySelectorAll('.page');
             pages.forEach(function(p) { p.classList.remove('active'); });
             document.getElementById(pageName).classList.add('active');
-            
-            var dropdown = document.getElementById('projects-dropdown');
-            if (dropdown) {
-                dropdown.classList.remove('active');
-            }
             
             var navBar = document.querySelector('nav');
             if (navBar) {
