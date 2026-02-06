@@ -17,6 +17,12 @@
             --light: #d6d6d6;
             --pink: #f2c4ce;
             --orange: #f58f7c;
+            /* Named colours for inline styles – dark theme */
+            --colour-orange: #f58f7c;
+            --colour-pink: #f2c4ce;
+            --colour-light: #d6d6d6;
+            --colour-dark: #1a1a1c;
+            --colour-gray: #2c2b30;
         }
 
         :root[data-theme="light"] {
@@ -25,6 +31,12 @@
             --light: #222222;
             --pink: #d47a90;
             --orange: #e07a5f;
+            /* Named colours for inline styles – light theme */
+            --colour-orange: #e07a5f;
+            --colour-pink: #d47a90;
+            --colour-light: #222222;
+            --colour-dark: #f5f5f7;
+            --colour-gray: #ffffff;
         }
 
         body {
@@ -285,6 +297,20 @@
             margin-top: 0.5rem;
         }
 
+        /* Project text colour from COLOUR: (orange, pink, light) – respects theme */
+        .project-card.project-colour-orange .project-title,
+        .project-card.project-colour-orange .project-description,
+        .project-card.project-colour-orange .project-date,
+        .project-card.project-colour-orange .project-image { color: var(--colour-orange); }
+        .project-card.project-colour-pink .project-title,
+        .project-card.project-colour-pink .project-description,
+        .project-card.project-colour-pink .project-date,
+        .project-card.project-colour-pink .project-image { color: var(--colour-pink); }
+        .project-card.project-colour-light .project-title,
+        .project-card.project-colour-light .project-description,
+        .project-card.project-colour-light .project-date,
+        .project-card.project-colour-light .project-image { color: var(--colour-light); }
+
         .page {
             display: none;
         }
@@ -510,6 +536,21 @@
             line-height: 1.6;
             font-style: italic;
         }
+
+        .project-header.project-colour-orange .project-detail-title,
+        .project-header.project-colour-orange .project-detail-date,
+        .project-header.project-colour-orange .project-detail-description { color: var(--colour-orange); }
+        .project-header.project-colour-pink .project-detail-title,
+        .project-header.project-colour-pink .project-detail-date,
+        .project-header.project-colour-pink .project-detail-description { color: var(--colour-pink); }
+        .project-header.project-colour-light .project-detail-title,
+        .project-header.project-colour-light .project-detail-date,
+        .project-header.project-colour-light .project-detail-description { color: var(--colour-light); }
+
+        /* Per-line colour in project content (e.g. "colour: orange" at start of line) */
+        .content-colour-orange { color: var(--colour-orange); }
+        .content-colour-pink { color: var(--colour-pink); }
+        .content-colour-light { color: var(--colour-light); }
 
         .project-main-image {
             width: 100%;
@@ -866,33 +907,42 @@
 
         var projectsData = `
 
-TITLE: IM30 Pole Mount
+TITLE: PAX IM30 Pole Mount
 DATE: January 2025 - Present
-DESCRIPTION: Pole mount for the IM30 validator to be used in busses
+DESCRIPTION: Bus Pole Mount for the PAX IM30 Validator
 IMAGE: images/IM30-CAD.png
 YOUTUBE:
 FEATURED: yes
 ---
-<h3 style="text-align: center;">The PAX IM30 is an all-in-one, Android-based payment terminal designed for self-service environments like vending machines, kiosks, EV chargers, parking meters, and public transport. The pole mount securely holds the IM30 on a bus pole, making it easy for passengers to use and keeping it stable while the bus is moving.</h3>
+<h3 style="color: orange">What is the PAX IM30?</h3>
+    The PAX IM30 is an all-in-one, Android-based payment terminal designed for self-service environments like vending machines, kiosks, EV chargers,
+    parking meters, and public transport. The pole mount securely holds the IM30 on a bus pole, making it easy for passengers to use and keeping it 
+    stable while the bus is moving.
 
 [IMG: images/Pax-IM30.webp | PAX IM30 Validator]
 
-<h3 style="text-align: center;">The aim of this project was to have make a case for the IM30 that not only mounts it to the pole but also covers the mag stripe readers on the device as having them required more certification.</h3>
+<h3 style="color: orange">What is the aim of the project?</h3>
+    The aim is to have make a case for the IM30 that not only mounts it to the pole but also covers the mag stripe readers on the device as having them 
+    required more certification.
 
+<h3 style=" color: orange;text-align: center;">The First Version:</h3>
 [3D: models/IM30_Pole_Mount_V1.glb | IM30 Pole Mount v1 3D Model | 6]
 
 <p style="text-align: center;">The first version of the IM30 pole mount was mainly about making a case that fit the validator comfortably. Before building the full mount, I 3D printed part of the model to check the fit, made some adjustments, and printed it again.</p>
 
+<h3 style=" color: orange;text-align: center;">The Second Version:</h3>
 [3D: models/IM30_Pole_Mount_V2.glb | IM30 Pole Mount v2 3D Model | 7]
 
 <p style="text-align: center;">The second version of the mount introduced the pole clamp. This used four screws to tighten the two halves of the clamp together around the pole, ensuring a secure fit. However, this design had some issues with stability, as the mount could still move up and down the pole. This was because the perfect circular clamp shape was the size of the pole, so it had limited clamping force.</p>
 
+<h3 style=" color: orange;text-align: center;">The Third Version:</h3>
 [3D: models/IM30_Pole_Mount_V3.glb | IM30 Pole Mount v3 3D Model | 7]
 
 <p style="text-align: center;">The third version of the IM30 pole mount added a better camera and the addition of a diagonal cutout on the front bottom edge of the mount to fit the shape of the IM30. These changes were to allow for clearer images when scanning QR codes.</p>
 
 <p style="text-align: center;">Additionally, the pole clamp was redesigned to be slightly smaller than the pole diameter. This allowed the screws to tighten the clamp more effectively, improving stability. However, there were still some issues with the mount sliding down the pole over time.</p>
 
+<h3 style=" color: orange;text-align: center;">The Fourth Version:</h3>
 [3D: models/IM30_Pole_Mount_V4.glb | IM30 Pole Mount v4 3D Model | 7]
 
 <p style="text-align: center;">For the fourth version, to protect the top of the IM30 and stop people from taking it a cover was added that would slide on and screw into the back of the IM30. Heat inserts were added to the pole clamp as the screws tended to strip the plastic.</p>
@@ -901,6 +951,7 @@ FEATURED: yes
 
 <p style="text-align: center;">There were two main problems one was changed in this design and the other was changed in the next design, the first one that was changed in this design was it was hard to see the screen on the device especialy when the device was mounted low. to fix this I added an angle to the device to make it face slightly up. The other more serious issue was that it was handed off as a mesh file instead of a CAD file, which made the design very hard to edit and make changes.</p>
 
+<h3 style=" color: orange;text-align: center;">The Fifth Version:</h3>
 [3D: models/IM30_Pole_Mount_V5.glb | IM30 Pole Mount v5 3D Model | 5]
 
 <p style="text-align: center;"></p>
@@ -950,6 +1001,11 @@ The introduction of inward curving walls helps distribute the blow of horizontal
                         project.youtube = line.substring(8).trim() || null;
                     } else if (line.indexOf('FEATURED:') === 0) {
                         project.featured = line.substring(9).trim().toLowerCase() === 'yes';
+                    } else if (line.indexOf('COLOUR:') === 0 || line.indexOf('COLOR:') === 0) {
+                        var colourValue = (line.indexOf('COLOUR:') === 0 ? line.substring(7) : line.substring(6)).trim().toLowerCase();
+                        if (colourValue && ['orange', 'pink', 'light'].indexOf(colourValue) !== -1) {
+                            project.colour = colourValue;
+                        }
                     } else if (line === '---') {
                         contentStart = i + 1;
                         break;
@@ -958,6 +1014,22 @@ The introduction of inward curving walls helps distribute the blow of horizontal
                 
                 if (contentStart !== -1) {
                     var contentLines = lines.slice(contentStart).join('\n').trim();
+                    contentLines = contentLines.split('\n').map(function(line) {
+                        var m = line.match(/^(colour|color):\s*(orange|pink|light)\s*(.*)$/i);
+                        if (m) {
+                            return '<span class="content-colour-' + m[2].toLowerCase() + '">' + m[3] + '</span>';
+                        }
+                        return line;
+                    }).join('\n');
+                    
+                    // Process inline styles to replace color names with CSS variables
+                    contentLines = contentLines.replace(/style="([^"]*)"/gi, function(match, styleContent) {
+                        // Replace color: orange, color: pink, etc. with CSS variables
+                        var processedStyle = styleContent.replace(/color:\s*(orange|pink|light|dark|gray)\s*([;"]|$)/gi, function(styleMatch, colorName, ending) {
+                            return 'color: var(--colour-' + colorName.toLowerCase() + ')' + ending;
+                        });
+                        return 'style="' + processedStyle + '"';
+                    });
                     
                     contentLines = contentLines.replace(/\[IMG:\s*([^\]|]+)(?:\|\s*([^\]]+))?\]/g, function(match, url, caption) {
                         var html = '<div style="text-align: center;"><img src="' + url.trim() + '" style="width: 100%; max-width: 800px; height: auto; border-radius: 8px; margin: 1.5rem auto; display: inline-block;"></div>';
@@ -1052,7 +1124,8 @@ The introduction of inward curving walls helps distribute the blow of horizontal
                 imageHtml = '<img src="' + project.image + '" class="project-main-image" alt="' + project.title + '">';
             }
             
-            content.innerHTML = imageHtml + '<div class="project-header"><h1 class="project-detail-title">' + project.title + '</h1><p class="project-detail-date">' + project.date + '</p><p class="project-detail-description">' + project.description + '</p></div><div class="resume-section"><div style="margin-top: 1.5rem;">' + project.content + '</div>' + youtubeEmbed + '</div>';
+            var headerClass = project.colour ? ' project-header project-colour-' + project.colour : ' project-header';
+            content.innerHTML = imageHtml + '<div class="' + headerClass.trim() + '"><h1 class="project-detail-title">' + project.title + '</h1><p class="project-detail-date">' + project.date + '</p><p class="project-detail-description">' + project.description + '</p></div><div class="resume-section"><div style="margin-top: 1.5rem;">' + project.content + '</div>' + youtubeEmbed + '</div>';
             
             showPage('project-detail');
             
@@ -1070,8 +1143,8 @@ The introduction of inward curving walls helps distribute the blow of horizontal
 
         function createProjectCard(project, index) {
             var imageHtml = project.image ? '<img src="' + project.image + '" class="project-image" alt="' + project.title + '">' : '<div class="project-image">No image available</div>';
-            
-            return '<div class="project-card" onclick="showProject(' + index + ')">' + imageHtml + '<div class="project-content"><div class="project-title">' + project.title + '</div><div class="project-description">' + project.description + '</div><div class="project-date">' + project.date + '</div></div></div>';
+            var colourClass = project.colour ? ' project-colour-' + project.colour : '';
+            return '<div class="project-card' + colourClass + '" onclick="showProject(' + index + ')">' + imageHtml + '<div class="project-content"><div class="project-title">' + project.title + '</div><div class="project-description">' + project.description + '</div><div class="project-date">' + project.date + '</div></div></div>';
         }
 
         document.getElementById('featured-projects').innerHTML = featuredProjects.map(function(p) {
