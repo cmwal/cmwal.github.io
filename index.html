@@ -915,16 +915,16 @@ YOUTUBE:
 FEATURED: yes
 ---
 <h3 style="color: orange">What is the PAX IM30?</h3>
-<p style="margin-left: 40px; margin-right: 40px;">The PAX IM30 is an all-in-one, Android-based payment terminal designed for self-service environments such as vending machines, kiosks, EV chargers, parking meters, and public transport. 
-    
-We use the PAX IM30 because it includes several features that make it well-suited for fully unassisted passenger travel. These features include a QR code scanner for scanning tickets, an Android operating system that allows for easier software development and updates, contactless and magnetic stripe card readers, cameras, a large display, and SAM card slots. 
-    
-The large display was particularly important, as it helps attract passengers’ attention and reduces the chance of accidentally forgetting to tap on and off the bus.</p>
+<p style="margin-left: 40px; margin-right: 40px;">The PAX IM30 is an all-in-one, Android-based payment terminal designed for self-service environments such as vending machines, kiosks, EV chargers, parking meters, and public transport.
+
+We use the PAX IM30 because it includes several features that make it well-suited for fully unassisted passenger travel. These features include a QR code scanner for scanning tickets, an Android operating system that allows for easier software development and updates, contactless and magnetic stripe card readers, cameras, a large display, and SAM card slots.
+
+The large display was particularly important, as it helps attract passengers' attention and reduces the chance of accidentally forgetting to tap on and off the bus.</p>
 [IMG: images/Pax-IM30.webp | PAX IM30 Validator]
 
 <h3 style="color: orange">What is the aim of the project?</h3>
-<p style="margin-left: 40px; margin-right: 40px;">The aim of this project is to design and manufacture a case for the PAX IM30 that securely mounts the device to a bus pole while remaining easy for passengers to access. The stability of the case is important while the bus is moving. This is essential as in a bus environment, the mount must withstand vibration, braking, and cornering forces without damaging the device or the mount. 
-    
+<p style="margin-left: 40px; margin-right: 40px;">The aim of this project is to design and manufacture a case for the PAX IM30 that securely mounts the device to a bus pole while remaining easy for passengers to access. The stability of the case is important while the bus is moving. This is essential as in a bus environment, the mount must withstand vibration, braking, and cornering forces without damaging the device or the mount.
+
 Another key requirement was that the design had to fully cover the magnetic stripe readers on both the bottom and the side of the IM30. This was important because exposed magnetic stripe readers require additional certification on the device. 
 
 These requirements guided the overall design of the case, influencing the mounting method and the shape of the mount.</p>
@@ -933,41 +933,62 @@ These requirements guided the overall design of the case, influencing the mounti
 <h3 style=" color: orange;text-align: center;">The First Version:</h3>
 [3D: models/IM30_Pole_Mount_V1.glb | IM30 Pole Mount v1 3D Model | 6]
 
-<p style="margin-left: 40px; margin-right: 40px;">The first version of the IM30 pole mount was primarily about designing a case that fit the validator correctly before developing the full mounting system. I 3D printed the case to check the fit, made adjustments, and printed it again. 
+<B style="margin-left: 40px; margin-right: 40px;">Focus: Validating Fit</B>
+<p style="margin-left: 40px; margin-right: 40px;">The first version of the IM30 pole mount was primarily about designing a case that fit the validator correctly before developing the full mounting system. I 3D printed the case to check the fit, made adjustments, and printed it again.
 
-Ensuring a precise fit early on was important to avoid tolerance issues later on. This iterative process allowed me to focus on designing the mounting system in the second version, rather than refining the fit of a version that is more complex. Doing this also helped me to better understand the dimensions and form factor of the PAX IM30.</p>
-<p style="margin-left: 40px; margin-right: 40px;">With the case dimensions finalised, I was able to move on to designing the pole mounting system in the Second version.</b>
+Ensuring a precise fit early on was important to avoid tolerance issues later on. This iterative process allowed me to focus on designing the mounting system in the second version, rather than refining the fit of a version that is more complex. Doing this also helped me to better understand the dimensions and form factor of the PAX IM30.
+
+With the case dimensions finalised, I was able to move on to designing the pole mounting system in the Second version.</b>
 
 
 
 <h3 style=" color: orange;text-align: center;">The Second Version:</h3>
 [3D: models/IM30_Pole_Mount_V2.glb | IM30 Pole Mount v2 3D Model | 7]
 
-<p style="margin-left: 40px; margin-right: 40px;">The second version of the mount introduced the pole clamp. This used four screws to tighten the two halves of the clamp together around the pole, ensuring a secure fit. However, this design had some issues with stability, as the mount could still move up and down the pole. This was because the perfect circular clamp shape was the size of the pole, so it had limited clamping force.</p>
+<B style="margin-left: 40px; margin-right: 40px;">Focus: Pole Clamp</B>
+<p style="margin-left: 40px; margin-right: 40px;">The second version of the IM30 pole mount introduced the clamping mechanism to attach it to the pole. This design used four M4 screws and nuts to tighten two halves of the clamp around the pole, ensuring a secure fit. 
+
+However, this version had some stability issues, as during testing, the mount would slide up and down the pole under vibration and movement. This occurred because the clamp was designed as a perfect circle matching the pole diameter, which resulted in limited clamping force. This highlighted the need for a clamp design that could generate more friction or incorporate a non-circular profile.
+
+These findings directly informed the design changes made in the third version.</p>
 
 
 
 <h3 style=" color: orange;text-align: center;">The Third Version:</h3>
 [3D: models/IM30_Pole_Mount_V3.glb | IM30 Pole Mount v3 3D Model | 7]
 
-<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount added a better camera and the addition of a diagonal cutout on the front bottom edge of the mount to fit the shape of the IM30. These changes were to allow for clearer images when scanning QR codes.</p>
+<B style="margin-left: 40px; margin-right: 40px;">Focus: Camera & Stability</B>
+<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount addressed the issue identified in the previous design by offsetting the clamp’s diameter so that it was no longer a perfect circle. This allowed the clamp to increase contact with the pole, making the clamp generate more friction, improving overall stability. Despite the improved grip, long-term stability under vibration remained a challenge, with the mount gradually sliding down the pole over time.
 
-<p style="margin-left: 40px; margin-right: 40px;">Additionally, the pole clamp was redesigned to be slightly smaller than the pole diameter. This allowed the screws to tighten the clamp more effectively, improving stability. However, there were still some issues with the mount sliding down the pole over time.</p>
+In addition, the camera opening was improved, and a diagonal cut-out was added to the front bottom edge of the mount to better match the shape of the IM30. These changes allowed for clearer images when passengers scanned QR codes.</p>
+
 
 
 <h3 style=" color: orange;text-align: center;">The Fourth Version:</h3>
 [3D: models/IM30_Pole_Mount_V4.glb | IM30 Pole Mount v4 3D Model | 7]
 
-<p style="margin-left: 40px; margin-right: 40px;">For the fourth version, to protect the top of the IM30 and stop people from taking it a cover was added that would slide on and screw into the back of the IM30. Heat inserts were added to the pole clamp as the screws tended to strip the plastic.</p>
+<B style="margin-left: 40px; margin-right: 40px;">Focus: Protection & Stability</B>
+<p style="margin-left: 40px; margin-right: 40px;">The fourth version of the mount involved significant changes, as the design needed to be prepared for rollout and installation on buses across Australia, including locations such as Cairns, Magnetic Island, and Gympie, as well as several locations outside of Australia.
 
-<p style="margin-left: 40px; margin-right: 40px;">A lot of the design was also reinforced to make sure they can survive the abuse that can occur during use. Some of these reinforcements include making the clamps taller, thickening the area on the case where the clamp slides in, and adding thickness in the front of the case.</p>
+To improve friction against the pole, rubber inserts were added between the clamp and the pole. This completely resolved the slipping issues present in earlier versions and proved to be a simple and effective solution, as it required no additional modelling changes. Heat-set inserts were also added to the pole clamp, as over-tightening the nuts in previous designs had caused cracking.
 
-<p style="margin-left: 40px; margin-right: 40px;">There were two main problems one was changed in this design and the other was changed in the next design, the first one that was changed in this design was it was hard to see the screen on the device especialy when the device was mounted low. to fix this I added an angle to the device to make it face slightly up. The other more serious issue was that it was handed off as a mesh file instead of a CAD file, which made the design very hard to edit and make changes.</p>
+Concerns were raised about the device being stolen and the top of the unit being damaged during use. To address this, a protective cover was added that slides over the top of the IM30 and screws into the back of the device.
+
+Several areas of the design were also reinforced to ensure the mount could withstand the wear and abuse expected in a public transport environment. These reinforcements included increasing the height of the clamps, thickening the area of the case where the clamp slides in, and adding material to the front of the case.
+
+The main limitation of this version was that the design was handed off as a mesh file rather than a CAD file, which made edits and design changes significantly more difficult.</p>
+
+
 
 <h3 style=" color: orange;text-align: center;">The Fifth Version:</h3>
 [3D: models/IM30_Pole_Mount_V5.glb | IM30 Pole Mount v5 3D Model | 5]
 
-<p style="margin-left: 40px; margin-right: 40px;"></p>
+<B style="margin-left: 40px; margin-right: 40px;">Focus: Finalising</B>
+<p style="margin-left: 40px; margin-right: 40px;">The fifth and current final version involved relatively few functional changes, as the primary focus was on fully redesigning the model to make future modifications and improvements easier.
+
+The main design change was adjusting the pole clamp so that the device sits at an angle, improving screen visibility for passengers. This concept had been explored in the previous version as a test, but several issues were identified and resolved during the full redesign in this iteration.
+
+A small but important improvement was reinforcing the vents at the back of the cover, as they were prone to breaking in earlier versions. A less critical change was the addition of the company logo and “Made in Melbourne” branding.</p>
 
 ===
 
