@@ -138,6 +138,52 @@
             color: var(--orange);
         }
 
+        /* Hamburger: hidden on desktop */
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            color: var(--light);
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+        .hamburger-btn:hover {
+            background: var(--dark);
+            color: var(--orange);
+        }
+        .hamburger-btn:focus-visible {
+            outline: 2px solid var(--orange);
+            outline-offset: 2px;
+        }
+        .hamburger-btn span {
+            display: block;
+            width: 22px;
+            height: 2px;
+            background: currentColor;
+            border-radius: 1px;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+        .hamburger-btn[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger-btn[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger-btn[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        .nav-mobile-menu {
+            display: none;
+        }
+
         .dropdown {
             position: relative;
         }
@@ -310,6 +356,22 @@
         .project-card.project-colour-light .project-description,
         .project-card.project-colour-light .project-date,
         .project-card.project-colour-light .project-image { color: var(--colour-light); }
+
+        .pages-view {
+            transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+        }
+        .pages-view.transitioning-out {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        .pages-view.transitioning-in {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+        .pages-view.transitioning-in.ready {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .page {
             display: none;
@@ -612,20 +674,66 @@
 
         @media (max-width: 768px) {
             nav {
-                flex-direction: column;
-                gap: 1rem;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1rem 1.25rem;
+            }
+
+            .nav-desktop {
+                display: none !important;
+            }
+
+            .hamburger-btn {
+                display: flex;
+            }
+
+            .nav-mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--gray);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+                border-radius: 0 0 8px 8px;
                 padding: 1rem;
-            }
-
-            nav ul {
                 flex-direction: column;
-                gap: 1rem;
-                width: 100%;
+                gap: 0.5rem;
+                z-index: 99;
+                margin-top: 2px;
             }
 
-            /* Hide dropdown on mobile - direct link instead */
-            .dropdown:hover .dropdown-content {
-                display: none;
+            nav.nav-mobile-open .nav-mobile-menu {
+                display: flex;
+            }
+
+            .nav-mobile-menu a {
+                display: block;
+                padding: 0.75rem 1rem;
+                color: var(--light);
+                text-decoration: none;
+                font-weight: 500;
+                border-radius: 4px;
+                transition: background-color 0.2s, color 0.2s;
+            }
+            .nav-mobile-menu a:hover {
+                background-color: var(--dark);
+                color: var(--orange);
+            }
+            .nav-mobile-menu .theme-toggle-wrap {
+                padding: 0.75rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+            }
+            .nav-mobile-menu .theme-toggle-wrap label {
+                font-weight: 500;
+                color: var(--light);
+            }
+
+            /* Hide projects dropdown on mobile – click goes to All Projects page only */
+            .dropdown .dropdown-content {
+                display: none !important;
             }
 
             .hero h1 {
@@ -695,7 +803,7 @@
 <body>
     <nav>
         <div class="nav-brand" onclick="showPage('home')">Callum Walters</div>
-        <ul>
+        <ul class="nav-desktop">
             <li><a href="#" onclick="showPage('home')">Home</a></li>
             <li class="dropdown" id="projects-dropdown">
                 <a href="#" onclick="handleProjectsClick(event)">Projects</a>
@@ -706,13 +814,26 @@
                 <button id="theme-toggle" class="theme-toggle" type="button">Toggle theme</button>
             </li>
         </ul>
+        <button class="hamburger-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile-menu" id="hamburger-btn">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-mobile-menu" id="nav-mobile-menu" role="menu">
+            <a href="#" role="menuitem" onclick="handleMobileNavClick(event, 'home')">Home</a>
+            <a href="#" role="menuitem" onclick="handleMobileNavClick(event, 'projects')">Projects</a>
+            <a href="#" role="menuitem" onclick="handleMobileNavClick(event, 'resume')">Resume</a>
+            <div class="theme-toggle-wrap">
+                <span>Theme</span>
+                <button id="theme-toggle-mobile" class="theme-toggle" type="button">Toggle theme</button>
+            </div>
+        </div>
     </nav>
 
     <div class="container">
+        <div class="pages-view" id="pages-view">
         <div id="home" class="page active">
             <div class="hero">
                 <h1>Hi, I'm Callum</h1>
-                <p>Student & Creator</p>
+                <p>High School Student & Creator</p>
                 <div class="social-links">
                     <a href="https://www.youtube.com/@Calzi31" target="_blank">YouTube</a>
                     <a href="https://github.com/Calzi31" target="_blank">GitHub</a>
@@ -836,6 +957,7 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 
     <script type="importmap">
@@ -867,14 +989,11 @@
             const normalized = theme === 'light' ? 'light' : 'dark';
             rootElement.setAttribute('data-theme', normalized);
 
-            const toggleBtn = document.getElementById('theme-toggle');
-            if (toggleBtn) {
-                toggleBtn.textContent = normalized === 'dark' ? 'Light mode' : 'Dark mode';
-                toggleBtn.setAttribute(
-                    'aria-label',
-                    normalized === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
-                );
-            }
+            const toggleBtns = document.querySelectorAll('.theme-toggle');
+            const ariaLabel = normalized === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+            toggleBtns.forEach(function(btn) {
+                btn.setAttribute('aria-label', ariaLabel);
+            });
 
             const bgColor = new THREE.Color(getSceneBackgroundColor(normalized));
             modelViewers.forEach(function(viewer) {
@@ -895,15 +1014,14 @@
             applyTheme(initial);
         })();
 
-        const themeToggleButton = document.getElementById('theme-toggle');
-        if (themeToggleButton) {
-            themeToggleButton.addEventListener('click', () => {
+        document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+            btn.addEventListener('click', function() {
                 const current = rootElement.getAttribute('data-theme') || 'dark';
                 const next = current === 'dark' ? 'light' : 'dark';
                 applyTheme(next);
                 localStorage.setItem(THEME_STORAGE_KEY, next);
             });
-        }
+        });
 
         var projectsData = `
 
@@ -948,8 +1066,7 @@ With the case dimensions finalised, I was able to move on to designing the pole 
 <B style="margin-left: 40px; margin-right: 40px;">Focus: Pole Clamp</B>
 <p style="margin-left: 40px; margin-right: 40px;">The second version of the IM30 pole mount introduced the clamping mechanism to attach it to the pole. This design used four M4 screws and nuts to tighten two halves of the clamp around the pole, ensuring a secure fit. 
 
-However, this version had some stability issues, as during testing, the mount would slide up and down the pole under vibration and movement. This occurred because the clamp was designed as a perfect circle matching the pole diameter, which resulted in limited clamping force. This highlighted the need for a clamp design that could generate more friction or incorporate a non-circular profile.
-
+However, this version had some stability issues, as during testing, the mount could slide up and down the pole. This occurred because the clamp was designed as a perfect circle matching the pole diameter, which resulted in limited clamping force. This highlighted the need for a clamp design that could generate more friction or incorporate a non-circular profile.
 These findings directly informed the design changes made in the third version.</p>
 
 
@@ -958,7 +1075,7 @@ These findings directly informed the design changes made in the third version.</
 [3D: models/IM30_Pole_Mount_V3.glb | IM30 Pole Mount v3 3D Model | 7]
 
 <B style="margin-left: 40px; margin-right: 40px;">Focus: Camera & Stability</B>
-<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount addressed the issue identified in the previous design by offsetting the clamp’s diameter so that it was no longer a perfect circle. This allowed the clamp to increase contact with the pole, making the clamp generate more friction, improving overall stability. Despite the improved grip, long-term stability under vibration remained a challenge, with the mount gradually sliding down the pole over time.
+<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount addressed the issue identified in the previous design by offsetting the clamp’s diameter so that it was no longer a perfect circle. This allowed the clamp to increase contact with the pole, making the clamp generate more friction, improving overall stability. Despite the improved grip, the mount still slowly slid down the pole over time under continuous vibration.
 
 In addition, the camera opening was improved, and a diagonal cut-out was added to the front bottom edge of the mount to better match the shape of the IM30. These changes allowed for clearer images when passengers scanned QR codes.</p>
 
@@ -1101,46 +1218,49 @@ The introduction of inward curving walls helps distribute the blow of horizontal
 
         var featuredProjects = projects.filter(function(p) { return p.featured; });
 
-        // Handle Projects click - desktop shows dropdown, mobile goes to page
+        // Clicking "Projects" always goes to All Projects page; desktop can still hover to see dropdown
         window.handleProjectsClick = function(event) {
             event.preventDefault();
-            var isMobile = window.innerWidth <= 768;
-            if (isMobile) {
-                // On mobile, go straight to projects page
-                showPage('projects');
-            }
-            // On desktop, the CSS hover will handle the dropdown
+            showPage('projects');
         };
 
-        var lastScrollTop = 0;
-        var navBar = document.querySelector('nav');
-        var scrollThreshold = 100;
+        // Mobile menu: close and navigate
+        window.handleMobileNavClick = function(ev, pageName) {
+            if (ev) ev.preventDefault();
+            showPage(pageName);
+            closeMobileMenu();
+        };
 
-        window.addEventListener('scroll', function() {
-            var isMobile = window.innerWidth <= 768;
-            if (!isMobile) return;
-
-            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-                navBar.classList.add('hidden');
-            } else {
-                navBar.classList.remove('hidden');
+        var hamburgerBtn = document.getElementById('hamburger-btn');
+        var navEl = document.querySelector('nav');
+        function closeMobileMenu() {
+            if (navEl) navEl.classList.remove('nav-mobile-open');
+            if (hamburgerBtn) {
+                hamburgerBtn.setAttribute('aria-expanded', 'false');
+                hamburgerBtn.setAttribute('aria-label', 'Open menu');
             }
-            
-            lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+        }
+        function openMobileMenu() {
+            if (navEl) navEl.classList.add('nav-mobile-open');
+            if (hamburgerBtn) {
+                hamburgerBtn.setAttribute('aria-expanded', 'true');
+                hamburgerBtn.setAttribute('aria-label', 'Close menu');
+            }
+        }
+        if (hamburgerBtn) {
+            hamburgerBtn.addEventListener('click', function() {
+                var open = navEl && navEl.classList.contains('nav-mobile-open');
+                if (open) closeMobileMenu(); else openMobileMenu();
+            });
+        }
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) closeMobileMenu();
         });
 
         window.showPage = function(pageName) {
             var pages = document.querySelectorAll('.page');
             pages.forEach(function(p) { p.classList.remove('active'); });
             document.getElementById(pageName).classList.add('active');
-            
-            var navBar = document.querySelector('nav');
-            if (navBar) {
-                navBar.classList.remove('hidden');
-            }
-            
             window.scrollTo(0, 0);
         };
 
