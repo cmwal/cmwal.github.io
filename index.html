@@ -1075,7 +1075,7 @@ These findings directly informed the design changes made in the third version.</
 [3D: models/IM30_Pole_Mount_V3.glb | IM30 Pole Mount v3 3D Model | 7]
 
 <B style="margin-left: 40px; margin-right: 40px;">Focus: Camera & Stability</B>
-<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount addressed the issue identified in the previous design by offsetting the clamp’s diameter so that it was no longer a perfect circle. This allowed the clamp to increase contact with the pole, making the clamp generate more friction, improving overall stability. Despite the improved grip, the mount still slowly slid down the pole over time under continuous vibration.
+<p style="margin-left: 40px; margin-right: 40px;">The third version of the IM30 pole mount addressed the issue identified in the previous design by offsetting the clamp's diameter so that it was no longer a perfect circle. This allowed the clamp to increase contact with the pole, making the clamp generate more friction, improving overall stability. Despite the improved grip, the mount still slowly slid down the pole over time under continuous vibration.
 
 In addition, the camera opening was improved, and a diagonal cut-out was added to the front bottom edge of the mount to better match the shape of the IM30. These changes allowed for clearer images when passengers scanned QR codes.</p>
 
@@ -1105,7 +1105,7 @@ The main limitation of this version was that the design was handed off as a mesh
 
 The main design change was adjusting the pole clamp so that the device sits at an angle, improving screen visibility for passengers. This concept had been explored in the previous version as a test, but several issues were identified and resolved during the full redesign in this iteration.
 
-A small but important improvement was reinforcing the vents at the back of the cover, as they were prone to breaking in earlier versions. A less critical change was the addition of the company logo and “Made in Melbourne” branding.</p>
+A small but important improvement was reinforcing the vents at the back of the cover, as they were prone to breaking in earlier versions. A less critical change was the addition of the company logo and "Made in Melbourne" branding.</p>
 
 ===
 
@@ -1307,6 +1307,7 @@ The introduction of inward curving walls helps distribute the blow of horizontal
             
             showPage('project-detail');
             
+            // Wait for page transition to complete before initializing 3D models
             setTimeout(function() {
                 var canvases = content.querySelectorAll('.model-viewer');
                 canvases.forEach(function(canvas) {
@@ -1316,7 +1317,7 @@ The introduction of inward curving walls helps distribute the blow of horizontal
                         initModelViewer(canvas.id, modelPath, initialZoom);
                     }
                 });
-            }, 100);
+            }, 550); // Wait for full transition (220ms out + 280ms in + buffer)
         };
 
         function createProjectCard(project, index) {
