@@ -1028,7 +1028,7 @@ TITLE: PAX IM30 Pole Mount
 DATE: January 2025 - Present
 DESCRIPTION: Bus Pole Mount for the PAX IM30 Validator
 IMAGE: images/IM30-CAD.png
-YOUTUBE: None
+YOUTUBE: 
 FEATURED: yes
 ---
 <h3 style="color: orange">What is the PAX IM30?</h3>
@@ -1105,6 +1105,19 @@ The main limitation of this version was that the design was handed off as a mesh
 The main design change was adjusting the pole clamp so that the device sits at an angle, improving screen visibility for passengers. This concept had been explored in the previous version as a test, but several issues were identified and resolved during the full redesign in this iteration.
 
 A small but important improvement was reinforcing the vents at the back of the cover, as they were prone to breaking in earlier versions. A less critical change was the addition of the company logo and "Made in Melbourne" branding.</p>
+
+
+
+<h3 style=" color: orange">Production:</h3>
+<p style="margin-left: 40px; margin-right: 40px;">To manufacture the mounts, 3D printing was selected as the production method. This decision was driven by cost, flexibility, and suitability for low-volume manufacturing.</p>
+<ol style="margin-left: 60px">
+  <li> <b style="color: orange;">Low up-front cost.</b> 3D printing has a significantly lower up-front cost compared to processes such as injection moulding. For 3D printing, the primary requirements are a printer and filament. With the recent availability of reliable, affordable printers, workhorses such as the Bambu Lab P1S can be purchased for around $600 AUD ($422 USD). In contrast, injection moulding tooling can exceed $200,000 AUD ($140,645 USD) per mould, and with four unique parts required, costs would escalate rapidly. While 3D printing does have drawbacks, such as slower production times and slightly higher material costs per part, these trade-offs were okay for this application.</li>
+  <li> <b style="color: orange;">Ease of design iteration.</b> 3D printing allows design changes to be implemented with minimal disruption. Modifications only require updating the CAD model and re-slicing the file to generate new G-code. In comparison, injection moulding would require new tooling for each design change, resulting in substantial additional cost and lead time.</li>
+  <li> <b style="color: orange;">Low-volume manufacturing.</b> The expected production volume is relatively low, with approximately 1,000 mounts required over the next year. Injection moulding is optimised for high-volume production, often producing thousands of parts per day, making it unnecessary for this use case.</li>
+</ol>
+<p style="margin-left: 40px; margin-right: 40px;">With 3D printing selected, material choice became the next consideration. During early testing, feedback indicated that mounts produced in PLA began to soften and deform in high-temperature environments such as Cairns. To address this, alternative materials were evaluated. ABS, ASA, and similar filaments were ruled out due to print difficulty and hazardous fumes, while PETG produced parts that were visually glossy, plasticy and lacked the desired stiffness. PLA+ was ultimately selected as a balance between print reliability, strength, and heat resistance. In the future, I would like to revisit PETG as an option.</p>
+<p style="margin-left: 40px; margin-right: 40px;">With the design, manufacturing method, and material finalised, print settings were optimised to achieve the best surface quality and strength. Through testing, the top section was printed upside down, increasing support material and print time but significantly improving surface finish. Ironing was enabled, resulting in an exceptionally smooth top surface. Final settings included a 0.2 mm layer height, 50% infill, ironing speed of 60 mm/s, and ironing flow of 30%.</p>
+<p style="margin-left: 40px; margin-right: 40px;">This setup gave us an impressive quality of the prints. Of course, I would have wanted to do it with a smaller nozzle to increase the quality even more, but the mount already took nearly 19 hours to print each. At the moment of writing, we have printed 48 mounts total, with the first installation of 44 mounts scheduled in Gympie.</p>
 
 ===
 
