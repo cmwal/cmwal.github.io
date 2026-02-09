@@ -1257,34 +1257,10 @@ The introduction of inward curving walls helps distribute the blow of horizontal
         });
 
         window.showPage = function(pageName) {
-            var targetPage = document.getElementById(pageName);
-            var pagesView = document.getElementById('pages-view');
-            if (!targetPage || !pagesView) return;
-            var currentActive = pagesView.querySelector('.page.active');
-            if (currentActive === targetPage) return;
-
-            var durationOut = 220;
-            var durationIn = 280;
-
-            function doSwitch() {
-                var pages = document.querySelectorAll('.page');
-                pages.forEach(function(p) { p.classList.remove('active'); });
-                targetPage.classList.add('active');
-                window.scrollTo(0, 0);
-                pagesView.classList.remove('transitioning-out');
-                pagesView.classList.add('transitioning-in');
-                requestAnimationFrame(function() {
-                    requestAnimationFrame(function() {
-                        pagesView.classList.add('ready');
-                    });
-                });
-                setTimeout(function() {
-                    pagesView.classList.remove('transitioning-in', 'ready');
-                }, durationIn);
-            }
-
-            pagesView.classList.add('transitioning-out');
-            setTimeout(doSwitch, durationOut);
+            var pages = document.querySelectorAll('.page');
+            pages.forEach(function(p) { p.classList.remove('active'); });
+            document.getElementById(pageName).classList.add('active');
+            window.scrollTo(0, 0);
         };
 
         window.showProject = function(index) {
